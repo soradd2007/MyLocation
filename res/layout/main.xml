@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <TextView
+        android:id="@+id/latitude" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/latitude" />
+    <TextView
+        android:id="@+id/latitudevalue" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/latitude"
+        android:layout_alignTop="@id/latitude"
+        android:text="@string/default_value" />
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/latitude"
+        android:text="@string/longitude" />
+    <TextView
+        android:id="@+id/longitudevalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/longitude"
+        android:layout_alignTop="@id/longitude"
+        android:layout_below="@id/latitude"
+        android:text="@string/default_value" />
+    <TextView
+        android:id="@+id/altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/longitude"
+        android:text="@string/altitude" />
+    <TextView
+        android:id="@+id/altitudevalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/altitude"
+        android:layout_alignTop="@id/altitude"
+        android:text="@string/default_value" />
+    <Button android:id="@+id/passingButton" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_below="@id/altitude"
+			android:layout_centerHorizontal="true" 
+			android:text="@string/passing" />
+
+</RelativeLayout>
