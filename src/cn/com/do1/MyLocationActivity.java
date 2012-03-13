@@ -16,7 +16,7 @@ public class MyLocationActivity extends Activity {
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.main);
-	        getGPS();
+	        //getGPS();
 	        final Button passingButton = (Button) findViewById(R.id.passingButton);
 	        passingButton.setOnClickListener(new Button.OnClickListener() {
 	        	public void onClick(View v){
