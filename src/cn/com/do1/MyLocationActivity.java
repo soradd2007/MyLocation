@@ -2,10 +2,12 @@ package cn.com.do1;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -65,6 +67,8 @@ public class MyLocationActivity extends Activity {
 	        	 Toast toast = Toast.makeText(getApplicationContext(),"NO SERVICE ENABLED", Toast.LENGTH_LONG);
 	        	 toast.setGravity(Gravity.CENTER, 0, 0);
 	        	 toast.show();
+	        	 Intent intent=new Intent(Settings.ACTION_SECURITY_SETTINGS);
+                 startActivityForResult(intent,0);
 	        }
 	        
 	    	/*locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,  
