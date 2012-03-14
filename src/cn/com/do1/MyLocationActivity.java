@@ -6,9 +6,11 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyLocationActivity extends Activity {
     /** Called when the activity is first created. */
@@ -40,12 +42,31 @@ public class MyLocationActivity extends Activity {
 	        criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗
 	    	
 	        String provider = locationManager.getBestProvider(criteria, true); // 获取GPS信息
-	        Location location = locationManager.getLastKnownLocation(provider); // 通过GPS获取位置
-	    	
 	        
-	        showLocation(location);
-	    	
-	    	
+	        Location location = null;
+	       if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+	    	   location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER); // 通过GPS获取位置
+	    	   //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+	    	   
+	    	   if(location == null){
+	    		   if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+	   	        		location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER); // 通过NETWORK获取位置
+	   	        		//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+	   	        	}
+	    	   }
+	    	   showLocation(location);
+	        }
+	        else if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+	        	location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER); // 通过NETWORK获取位置
+	        	//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+	        	showLocation(location);
+	        }
+	        else{
+	        	 Toast toast = Toast.makeText(getApplicationContext(),"NO SERVICE ENABLED", Toast.LENGTH_LONG);
+	        	 toast.setGravity(Gravity.CENTER, 0, 0);
+	        	 toast.show();
+	        }
+	        
 	    	/*locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,  
 	      			 1000, 0, locationListener);*/
 	    }
@@ -53,15 +74,24 @@ public class MyLocationActivity extends Activity {
 	    private void showLocation(Location location){
 	    	/*latitude = location.getLatitude();     //经度  
 	    	longitude = location.getLongitude(); //纬度  
-	    	altitude =  location.getAltitude();     //海拔 
-	*/    	
-	    	TextView latitudeTextView = (TextView)findViewById(R.id.latitudevalue);
-	        TextView longitudeTextView = (TextView)findViewById(R.id.longitudevalue);
-	        TextView altitudeTextView = (TextView)findViewById(R.id.altitudevalue);
-	        
-	        latitudeTextView.setText(String.valueOf(location.getLatitude()));	//经度  
-	        longitudeTextView.setText(String.valueOf(location.getLongitude()));	//纬度  
-	        altitudeTextView.setText(String.valueOf(location.getAltitude()));	//海拔
+	    	altitude =  location.getAltitude();     //海拔
+	    	 */ 
+	    	
+	    	if(location == null){
+	    		//Toast.makeText(MyLocationActivity.this, "LOCATION IS NULL EXCEPTION", 5000);
+	    		Toast toast = Toast.makeText(getApplicationContext(),"LOCATION IS NULL EXCEPTION", Toast.LENGTH_LONG);
+	        	 toast.setGravity(Gravity.CENTER, 0, 0);
+	        	 toast.show();
+	    	}
+	    	else{
+		    	TextView latitudeTextView = (TextView)findViewById(R.id.latitudevalue);
+		        TextView longitudeTextView = (TextView)findViewById(R.id.longitudevalue);
+		        TextView altitudeTextView = (TextView)findViewById(R.id.altitudevalue);
+		        
+		        latitudeTextView.setText(String.valueOf(location.getLatitude()));	//经度  
+		        longitudeTextView.setText(String.valueOf(location.getLongitude()));	//纬度  
+		        altitudeTextView.setText(String.valueOf(location.getAltitude()));	//海拔
+	    	}
 	    }
 	    
 	/*    private final LocationListener locationListener = new LocationListener() {  
